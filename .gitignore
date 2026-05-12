@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets
+.env
+
+# Large data files
+data/raw/
+archive/
+*.csv.gz
+
+# Model binaries (auf HuggingFace gespeichert)
+models/*.pkl
+models/*.bin
+
+# Patch scripts (nur lokal verwendet)
+patch_nb03.py
+patch_nb03_colab.py
