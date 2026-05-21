@@ -11,7 +11,7 @@ When possible, reference the corresponding code location directly in your descri
 > See *Data Preprocessing* in [`01_eda.ipynb`](../notebooks/01_eda.ipynb#data-loading)
 
 ### Example: Reference to Python code
-> [`app/app.py`, lines 60–80](../app/app.py#L60-L80)
+> [`space/app.py`, lines 60–80](../space/app.py#L60-L80)
 
 ---
 
@@ -85,7 +85,7 @@ Patient Metadata ────────► [ML: Random Forest / XGBoost]
                            Patient Explanation (German)
 ```
 
-> See pipeline overview in [`app/app.py`, lines 80–110](../app/app.py#L80-L110)
+> See pipeline overview in [`space/app.py`, lines 80–110](../space/app.py#L80-L110)
 
 ---
 
@@ -155,7 +155,7 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
 
 - **Inputs received from other block(s):** None (metadata is independent of CV output at training time)
 - **Outputs provided to other block(s):**
-  - `risk_level` (low/medium/high) → combined with CV-derived risk in [`app/app.py`](../app/app.py#L105-L110)
+  - `risk_level` (low/medium/high) → combined with CV-derived risk in [`space/app.py`](../space/app.py#L105-L110)
   - `risk_level` → passed as input to NLP block for explanation generation
 
 ---
@@ -206,7 +206,7 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
   - Strategy C (adaptive): avg **4.8/5** → selected for app
 - **Error patterns and likely causes:**
   - Occasionally too verbose (>100 words) at temperature 0.3 — solved by explicit word limit
-  - JSON parsing fails if LLM adds markdown fences — handled by `parse_json_response()` in [`app/app.py`](../app/app.py#L55-L65)
+  - JSON parsing fails if LLM adds markdown fences — handled by `parse_json_response()` in [`space/app.py`](../space/app.py#L55-L65)
 
 #### 2B.6 Integration with Other Block(s)
 
@@ -261,8 +261,8 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
 | Iteration | Objective | Key changes | Model(s) used | Main metric | Change vs previous |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Transfer learning baseline | Freeze all layers, train classifier head only (5 epochs) | ViT-Base | Balanced Acc: ~0.55 | — |
-| 2 | Full fine-tuning | Unfreeze all layers, lr=3e-4, 5 more epochs | ViT-Base | Balanced Acc: ~0.72 | +0.17 |
-| 3 | Model comparison | No training — compare with CLIP & OpenAI Vision on same test sample | ViT vs CLIP vs OpenAI | Balanced Acc: ViT 0.549 (Acc 0.735), CLIP ~0.35, OpenAI ~0.48 | Context only |
+| 2 | Full fine-tuning | Unfreeze all layers, lr=3e-4, 5 more epochs | ViT-Base | Balanced Acc: ~0.72 (full test set, NB03 Colab — outputs not saved) | +0.17 |
+| 3 | Model comparison | No training — compare with CLIP & OpenAI Vision on 200-image sample (NB05) | ViT vs CLIP vs OpenAI | Balanced Acc: ViT 0.549 (Acc 0.735), CLIP ~0.35, OpenAI ~0.48 | Context only |
 
 > See full comparison in [`notebooks/03_cv_training.ipynb`](../notebooks/03_cv_training.ipynb#7-vergleichs-tabelle)
 
@@ -290,7 +290,7 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
 - **Inputs received from other block(s):** Raw skin lesion image from user (no preprocessing by other blocks)
 - **Outputs provided to other block(s):**
   - `lesion_type` (string, one of 7 classes) → used by NLP block for explanation
-  - `cv_risk` derived from lesion_type → combined with ML `risk_level` in [`app/app.py`](../app/app.py#L105-L110)
+  - `cv_risk` derived from lesion_type → combined with ML `risk_level` in [`space/app.py`](../space/app.py#L105-L110)
   - `confidence` score → shown to user and passed to NLP prompt
 
 ---
@@ -305,7 +305,7 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
   4. App shows: ViT / CLIP / OpenAI predictions side by side + combined risk level + German explanation
 - **Screenshot or short demo:** App live at https://huggingface.co/spaces/PREMAADC/skin-lesion-advisor — accepts dermoscopy image + patient metadata, returns ViT/CLIP/OpenAI predictions, combined risk level, and German explanation.
 
-> App entry point: [`app/app.py`](../app/app.py)
+> App entry point: [`space/app.py`](../space/app.py)
 
 ---
 
@@ -345,16 +345,16 @@ jupyter notebook notebooks/05_evaluation.ipynb
 - **Inference/run command(s):**
 ```bash
 # Local app (after models are trained):
-python app/app.py
+python space/app.py
 # Or via gradio:
-gradio app/app.py
+gradio space/app.py
 ```
 
 - **Reproducibility notes:**
   - All notebooks use `random_state=42`
   - Python 3.10, package versions pinned in `requirements.txt`
   - CV model pushed to HuggingFace Hub — reproducible via model ID
-  - ML model saved as `models/ml_risk_classifier.pkl`
+  - ML model saved as `space/models/ml_risk_classifier.pkl`
 
 ---
 
