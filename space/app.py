@@ -198,9 +198,9 @@ def run_pipeline(image, age, sex, localization):
 
     risk_emoji = {'low': '🟢 Niedrig', 'medium': '🟡 Mittel', 'high': '🔴 Hoch'}
     summary = (
-        f"**Bildanalyse:** {DX_NAMES.get(vit_label, vit_label)} ({vit_conf:.0%})\n\n"
-        f"**ML-Risiko (Metadaten):** {risk_emoji.get(ml_risk, ml_risk)}\n\n"
-        f"**Gesamtrisiko:** {risk_emoji.get(final_risk, final_risk)}"
+        f"Bildanalyse: {DX_NAMES.get(vit_label, vit_label)} ({vit_conf:.0%})\n"
+        f"ML-Risiko (Metadaten): {risk_emoji.get(ml_risk, ml_risk)}\n"
+        f"Gesamtrisiko: {risk_emoji.get(final_risk, final_risk)}"
     )
 
     openai_str = json.dumps(openai_output, ensure_ascii=False, indent=2)
@@ -228,7 +228,7 @@ with gr.Blocks(title='Skin Lesion Risk Advisor') as demo:
             submit_btn = gr.Button('Analysieren', variant='primary')
 
         with gr.Column():
-            summary_out     = gr.Markdown(label='Zusammenfassung')
+            summary_out     = gr.Textbox(label='Zusammenfassung', lines=4)
             explanation_out = gr.Textbox(label='Erklärung', lines=6)
 
     gr.Markdown('### Modellvergleich: ViT vs. CLIP vs. OpenAI Vision')
