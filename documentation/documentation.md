@@ -303,7 +303,13 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
   2. User enters patient data (age, sex, body localization)
   3. Clicks "Analysieren"
   4. App shows: ViT / CLIP / OpenAI predictions side by side + combined risk level + German explanation
-- **Screenshot or short demo:** App live at https://huggingface.co/spaces/PREMAADC/skin-lesion-advisor — accepts dermoscopy image + patient metadata, returns ViT/CLIP/OpenAI predictions, combined risk level, and German explanation.
+- **Screenshot or short demo:**
+
+**Example 1 — Melanocytic Nevus (low risk):**
+![Screenshot NV](screenshots/screenshot_nv.png)
+
+**Example 2 — Basalzellkarzinom (high risk):**
+![Screenshot BCC](screenshots/screenshot_bcc.png)
 
 > App entry point: [`space/app.py`](../space/app.py)
 
