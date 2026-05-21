@@ -143,7 +143,7 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
 - **Final results (Iteration 2, 8 features):**
   - Random Forest: Balanced Accuracy 0.627, F1 Macro 0.475
   - XGBoost: Balanced Accuracy 0.651, F1 Macro 0.483 ← best model saved
-  - Best model: XGBoost Iteration 2 → `models/ml_risk_classifier.pkl`
+  - Best model: XGBoost Iteration 2 → `space/models/ml_risk_classifier.pkl`
   - Feature Importance (top 3): `age` (0.420), `loc_enc` (0.190), `age_group` (0.101)
   - Critical errors (high → low): 74 of 326 high-risk cases — corrected by CV block in pipeline
 - **Error patterns and likely causes:**
@@ -346,8 +346,8 @@ jupyter notebook notebooks/05_evaluation.ipynb
 ```bash
 # Local app (after models are trained):
 python space/app.py
-# Or via gradio:
-gradio space/app.py
+# Or deployed on HuggingFace Spaces (no local setup needed):
+# https://huggingface.co/spaces/PREMAADC/skin-lesion-advisor
 ```
 
 - **Reproducibility notes:**
