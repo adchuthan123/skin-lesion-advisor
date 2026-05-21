@@ -260,9 +260,9 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
 
 | Iteration | Objective | Key changes | Model(s) used | Main metric | Change vs previous |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Transfer learning baseline | Freeze all layers, train classifier head only (5 epochs) | ViT-Base | Balanced Acc: ~0.55 | — |
-| 2 | Full fine-tuning | Unfreeze all layers, lr=3e-4, 5 more epochs | ViT-Base | Balanced Acc: ~0.72 (full test set, NB03 Colab — outputs not saved) | +0.17 |
-| 3 | Model comparison | No training — compare with CLIP & OpenAI Vision on 200-image sample (NB05) | ViT vs CLIP vs OpenAI | Balanced Acc: ViT 0.549 (Acc 0.735), CLIP ~0.35, OpenAI ~0.48 | Context only |
+| 1 | Transfer learning baseline | Freeze all layers, train classifier head only (5 epochs) | ViT-Base | Balanced Acc: 0.50 (head only) | — |
+| 2 | Full fine-tuning | Unfreeze all layers, lr=3e-4, full dataset | ViT-Base | Acc: 0.785, Balanced Acc: 0.500, F1 Macro: 0.56 (full test set, 2003 images) | Acc +0.24 |
+| 3 | Model comparison | No training — compare ViT vs CLIP vs OpenAI on 49-image balanced sample (7 per class) | ViT vs CLIP vs OpenAI | ViT: 0.449, CLIP: 0.163, OpenAI: 0.265 (Balanced Acc) | Context only |
 
 > See full comparison in [`notebooks/03_cv_training.ipynb`](../notebooks/03_cv_training.ipynb#7-vergleichs-tabelle)
 
@@ -273,12 +273,11 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
   - Visual: sample predictions with correct/incorrect labels
   - See [`notebooks/03_cv_training.ipynb`](../notebooks/03_cv_training.ipynb#5-evaluation--unser-vit-modell)
 
-- **Final results (200-image test sample, NB05):**
-  - ViT (fine-tuned): Accuracy 0.735, Balanced Accuracy 0.549, F1 Macro 0.590 ← deployed model (`PREMAADC/vit-base-ham10000`)
-  - CLIP (zero-shot): Balanced Accuracy ≈ 0.35 (no fine-tuning, text-image matching only)
-  - OpenAI Vision: Balanced Accuracy ≈ 0.48 (qualitative sample only — not evaluated on full dataset to avoid API costs)
-  - Combined pipeline: Balanced Accuracy 0.756, F1 Macro 0.597
-  - See full evaluation in [`notebooks/05_evaluation.ipynb`](../notebooks/05_evaluation.ipynb)
+- **Final results:**
+  - ViT (fine-tuned), full test set (2003 images): Accuracy 0.785, Balanced Accuracy 0.500, F1 Macro 0.56 ← deployed model (`PREMAADC/vit-base-ham10000`)
+  - ViT vs CLIP vs OpenAI on 49-image balanced sample: ViT 0.449, CLIP 0.163, OpenAI 0.265 (Balanced Acc)
+  - Combined pipeline (CV + ML): evaluated in Notebook 05
+  - See [`notebooks/03_cv_training.ipynb`](../notebooks/03_cv_training.ipynb) and [`notebooks/05_evaluation.ipynb`](../notebooks/05_evaluation.ipynb)
 
 - **Error patterns and limitations:**
   - Classes `df` (dermatofibroma) and `vasc` (vascular lesions) hardest to classify — smallest classes in dataset
