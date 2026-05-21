@@ -352,7 +352,7 @@ gradio space/app.py
 
 - **Reproducibility notes:**
   - All notebooks use `random_state=42`
-  - Python 3.10, package versions pinned in `requirements.txt`
+  - Python 3.12, package versions pinned in `requirements.txt`
   - CV model pushed to HuggingFace Hub — reproducible via model ID
   - ML model saved as `space/models/ml_risk_classifier.pkl`
 
