@@ -262,7 +262,7 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
 | --- | --- | --- | --- | --- | --- |
 | 1 | Transfer learning baseline | Freeze all layers, train classifier head only (5 epochs) | ViT-Base | Balanced Acc: ~0.55 | — |
 | 2 | Full fine-tuning | Unfreeze all layers, lr=3e-4, 5 more epochs | ViT-Base | Balanced Acc: ~0.72 | +0.17 |
-| 3 | Model comparison | No training — compare with CLIP & OpenAI Vision on same test sample | ViT vs CLIP vs OpenAI | Balanced Acc: ViT 0.785, CLIP ~0.35, OpenAI ~0.48 | Context only |
+| 3 | Model comparison | No training — compare with CLIP & OpenAI Vision on same test sample | ViT vs CLIP vs OpenAI | Balanced Acc: ViT 0.549 (Acc 0.735), CLIP ~0.35, OpenAI ~0.48 | Context only |
 
 > See full comparison in [`notebooks/03_cv_training.ipynb`](../notebooks/03_cv_training.ipynb#7-vergleichs-tabelle)
 
@@ -273,10 +273,11 @@ Columns used: `age` (numeric), `sex` (categorical), `localization` (categorical)
   - Visual: sample predictions with correct/incorrect labels
   - See [`notebooks/03_cv_training.ipynb`](../notebooks/03_cv_training.ipynb#5-evaluation--unser-vit-modell)
 
-- **Final results:**
-  - ViT (fine-tuned): Accuracy 0.785, Balanced Accuracy 0.72, F1 Macro 0.68 ← deployed model (`PREMAADC/vit-base-ham10000`)
+- **Final results (200-image test sample, NB05):**
+  - ViT (fine-tuned): Accuracy 0.735, Balanced Accuracy 0.549, F1 Macro 0.590 ← deployed model (`PREMAADC/vit-base-ham10000`)
   - CLIP (zero-shot): Balanced Accuracy ≈ 0.35 (no fine-tuning, text-image matching only)
-  - OpenAI Vision: Balanced Accuracy ≈ 0.48 (closed-source, 5-shot qualitative sample)
+  - OpenAI Vision: Balanced Accuracy ≈ 0.48 (qualitative sample only — not evaluated on full dataset to avoid API costs)
+  - Combined pipeline: Balanced Accuracy 0.756, F1 Macro 0.597
   - See full evaluation in [`notebooks/05_evaluation.ipynb`](../notebooks/05_evaluation.ipynb)
 
 - **Error patterns and limitations:**
